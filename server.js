@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * PaperSprocket-native MCP server (HER-129).
+ * PaperSprocket-native MCP server (stdio).
  *
  * Exactly two tools:
  *   - render_html_to_pdf(html, page?)   → POST /v1/render   → binary PDF
@@ -13,11 +13,11 @@
  *   - base_url comes from PAPERSPROCKET_BASE_URL (default production API). It is
  *     fixed/config state, not an agent-controlled argument.
  *
- * Replacement of the generated Postman scaffold:
- *   The generator's postmanExecutor coerces the response to a JS string
- *   (`response.stream.toString()`), which destroys the binary PDF. This server
- *   reads the raw PDF bytes directly and returns them as an MCP EmbeddedResource
- *   (blob) plus file + metadata, which is the MCP-appropriate binary handling.
+ * Binary PDF handling:
+ *   A naive text coercion of the HTTP response would destroy the binary PDF.
+ *   This server reads the raw PDF bytes directly and returns them as an MCP
+ *   EmbeddedResource (blob) plus file + metadata, which is the MCP-appropriate
+ *   binary handling.
  *
  * Idempotency design:
  *   - A fresh random idempotency key is generated per logical render.
@@ -59,7 +59,7 @@ function loadEnv(file) {
 }
 
 // Load <serverdir>/.env into the runtime env (does not override existing env).
-// The scaffold already ships a .gitignore for `.env*`; we keep the same rule.
+// (.env* is gitignored; only .env.example is tracked — no secrets in the repo.)
 loadEnv(path.join(__dirname, ".env"));
 
 function config() {
@@ -76,7 +76,7 @@ function config() {
 }
 
 /* ------------------------------------------------------------------ *
- * Render body schema (mirrors src/render/request.ts on the service)
+ * Render body schema
  * ------------------------------------------------------------------ */
 const PAGE_SIZES = ["A4", "Letter"];
 const ORIENTATIONS = ["portrait", "landscape"];

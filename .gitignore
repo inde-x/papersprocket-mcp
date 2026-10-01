@@ -1,4 +1,4 @@
 node_modules/
-.env          # real secret config — never commit
+.env*          # real secret config variants — never commit
 !.env.example # template with no secrets — commit this
 output/

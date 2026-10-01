@@ -4,7 +4,7 @@ import { normalizePage, renderHtmlToPdf, checkBalance, TOOLS, buildServer } from
 import { McpError } from "@modelcontextprotocol/sdk/types.js";
 
 // Deterministic env for tests (no real secret needed)
-const TEST_ENV = { PAPERSPROCKET_API_KEY: "psk_test_12345678901234567890", PAPERSPROCKET_BASE_URL: "https://ps.test/api" };
+const TEST_ENV = { PAPERSPROCKET_API_KEY: "test-api-key-not-a-secret", PAPERSPROCKET_BASE_URL: "https://ps.test/api" };
 for (const [k, v] of Object.entries(TEST_ENV)) process.env[k] = v;
 
 const pdfBytes = Buffer.concat([Buffer.from("%PDF-1.4\n"), Buffer.alloc(800, 7)]);
@@ -80,7 +80,7 @@ test("render_html_to_pdf: builds service request from caller args; key is secret
   globalThis.fetch = originalFetch;
   assert.equal(req.url, "https://ps.test/api/v1/render");
   assert.equal(req.options.method, "POST");
-  assert.equal(req.options.headers.Authorization, "Bearer psk_test_12345678901234567890");
+  assert.equal(req.options.headers.Authorization, "Bearer test-api-key-not-a-secret");
   assert.match(req.options.headers["Idempotency-Key"], /^[0-9a-f-]{36}$/i);
   const body = JSON.parse(req.options.body);
   assert.equal(body.html, "<h1>again</h1>");
@@ -122,7 +122,7 @@ test("check_balance: GETs the account endpoint, returns structured result", asyn
     const r = await checkBalance({ account_id: "a1" });
     assert.equal(captured.url, "https://ps.test/api/v1/accounts/a1/balance");
     assert.equal(captured.options.method, "GET");
-    assert.equal(captured.options.headers.Authorization, "Bearer psk_test_12345678901234567890");
+    assert.equal(captured.options.headers.Authorization, "Bearer test-api-key-not-a-secret");
     assert.equal(r.balance_cents, 998);
   } finally { globalThis.fetch = originalFetch; }
 });

@@ -7,12 +7,10 @@ FROM node:22-alpine
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm install --omit=dev --no-audit --no-fund
+RUN npm ci --omit=dev --no-audit --no-fund
 
 COPY server.js ./
 COPY .env.example ./
 
 # .env is expected to be mounted/created at runtime by the operator.
-EXPOSE 3001
-
 ENTRYPOINT ["node", "server.js"]
