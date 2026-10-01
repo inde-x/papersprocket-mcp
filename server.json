@@ -1,0 +1,42 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.inde-x/papersprocket",
+  "title": "PaperSprocket",
+  "description": "EU-hosted HTML-to-PDF rendering for agents and MCP clients. Temporary document processing.",
+  "repository": {
+    "url": "https://github.com/inde-x/papersprocket-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "papersprocket-mcp",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "version": "1.0.0",
+      "runtimeHint": "npx",
+      "runtimeArguments": [
+        {
+          "type": "positional",
+          "value": "-y"
+        },
+        {
+          "type": "positional",
+          "value": "papersprocket-mcp"
+        }
+      ],
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "description": "PaperSprocket API key (server-side secret/config state). Obtained from your PaperSprocket account; never passed as a tool argument.",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string",
+          "name": "PAPERSPROCKET_API_KEY"
+        }
+      ]
+    }
+  ]
+}

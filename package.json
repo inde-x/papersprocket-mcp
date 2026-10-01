@@ -4,6 +4,29 @@
   "description": "PaperSprocket-native MCP server. Exactly two tools: render_html_to_pdf (binary PDF) and check_balance. Credentials come from server-side env/.env only — never caller-supplied tool arguments.",
   "type": "module",
   "main": "server.js",
+  "bin": {
+    "papersprocket-mcp": "server.js"
+  },
+  "mcpName": "io.github.inde-x/papersprocket",
+  "files": [
+    "server.js",
+    "README.md",
+    "LICENSE",
+    ".env.example"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "papersprocket",
+    "pdf",
+    "html-to-pdf",
+    "render"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inde-x/papersprocket-mcp.git"
+  },
   "engines": {
     "node": ">=20.0.0"
   },
