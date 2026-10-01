@@ -29,17 +29,18 @@ processing. See the official [documentation](https://papersprocket.com/docs).
 
 ## Install
 
-### Via npx (published npm distribution)
+### Run via npx
 
 ```bash
 npx -y papersprocket-mcp
 ```
 
-The npm package `papersprocket-mcp` distributes a stdio MCP server with a
-runnable `papersprocket-mcp` binary. Point your MCP client at it with
-`npx -y papersprocket-mcp` and provide `PAPERSPROCKET_API_KEY` in the client's
-environment (the server reads it server-side only). The registry identity for
-the official MCP Registry is `io.github.inde-x/papersprocket`.
+The intended distribution model is the npm package `papersprocket-mcp`,
+executed through npx. Once the package is published to npm (and registered in
+the official MCP Registry under identity `io.github.inde-x/papersprocket`),
+point your MCP client at `npx -y papersprocket-mcp` and provide
+`PAPERSPROCKET_API_KEY` in the client's environment (the server reads it
+server-side only). Until publication completes, run from source below.
 
 ### From source
 
@@ -81,7 +82,7 @@ node server.js --list-tools    # print tool schemas, then exit
 Point your MCP client at a stdio server:
 
 ```
-# published npm distribution:
+# via npx (after publication):
 Command:   npx
 Arguments: -y papersprocket-mcp
 
